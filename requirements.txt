@@ -1,0 +1,9 @@
+numpy
+numpy-stl
+matplotlib
+moviepy
+qrcode
+Pillow
+docx2pdf
+pdf2docx
+pyinstaller
