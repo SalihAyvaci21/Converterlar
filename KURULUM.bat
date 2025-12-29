@@ -10,7 +10,7 @@ echo [1/4] Python kontrol ediliyor...
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo HATA: Bilgisayarda Python yuklu degil veya PATH'e eklenmemis!
-    echo Lutfen once Python yukleyin (Microsoft Store'dan indirebilirsiniz).
+    echo Lutfen once Python yukleyin - Microsoft Store'dan indirebilirsiniz.
     pause
     exit
 )
@@ -29,17 +29,17 @@ echo.
 
 echo [4/4] Temizlik yapiliyor ve dosya hazirlaniyor...
 :: Eski gereksiz dosyalari temizle
-if exist "Converterlar.py" del "Converterlar.py"
+if exist "Converterlar.spec" del "Converterlar.spec"
 if exist "build" rmdir /s /q "build"
 
 :: EXE'yi dist klasorunden ana dizine tasi
 if exist "dist\Converterlar.exe" (
-    move "dist\Converterlar.exe" ".\Converterlar.exe"
+    move "dist\Converterlar.exe" ".\Converterlar_Calistir.exe"
     rmdir /s /q "dist"
     echo.
     echo ========================================================
     echo   BASARILI! KURULUM TAMAMLANDI.
-    echo   'SalihAtolye_Calistir.exe' dosyasi olusturuldu.
+    echo   'Converterlar_Calistir.exe' dosyasi olusturuldu.
     echo ========================================================
 ) else (
     echo.
