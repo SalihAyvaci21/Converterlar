@@ -41,8 +41,8 @@ Bu projeyi bilgisayarınızda çalıştırmak için iki yöntem vardır:
 Kod veya kütüphanelerle uğraşmak istemiyorsanız:
 
 1.  Bu depoyu indirin (ZIP olarak veya git clone ile).
-2.  Klasörün içindeki **`KURULUM_YAP.bat`** dosyasına çift tıklayın.
-3.  Sihirbaz otomatik olarak gerekli kütüphaneleri indirecek ve **`SalihAtolye_Calistir.exe`** dosyasını oluşturacaktır.
+2.  Klasörün içindeki **`KURULUM.bat`** dosyasına çift tıklayın.
+3.  Sihirbaz otomatik olarak gerekli kütüphaneleri indirecek ve **`Converterlar.exe`** dosyasını oluşturacaktır.
 4.  Oluşan `.exe` dosyasına tıklayıp kullanmaya başlayabilirsiniz.
 
 ### Yöntem 2: Manuel Kurulum (Geliştiriciler İçin) 👨‍💻
@@ -50,7 +50,7 @@ Kod veya kütüphanelerle uğraşmak istemiyorsanız:
 1.  **Depoyu klonlayın:**
     ```bash
     git clone [https://github.com/SalihAyvaci21/Converterlar.git](https://github.com/SalihAyvaci21/Converterlar.git)
-    cd Digital-Engineering-Workshop
+    cd Converterlar
     ```
 
 2.  **Gerekli kütüphaneleri yükleyin:**
@@ -60,7 +60,7 @@ Kod veya kütüphanelerle uğraşmak istemiyorsanız:
 
 3.  **Uygulamayı başlatın:**
     ```bash
-    python SalihAtolye.py
+    python Converterlar.py
     ```
 
 ## 🧩 Kullanılan Teknolojiler
