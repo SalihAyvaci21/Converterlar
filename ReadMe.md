@@ -60,7 +60,7 @@ Kod veya kütüphanelerle uğraşmak istemiyorsanız:
 
 3.  **Uygulamayı başlatın:**
     ```bash
-    python Converterlar.py
+    py -3.12 .\Converterlar.py 
     ```
 
 ## 🧩 Kullanılan Teknolojiler
