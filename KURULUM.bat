@@ -5,7 +5,7 @@ title Salih Atolye - Otomatik Kurulum ve Derleme
 :: ---------------------------------------------------------
 :: AYARLAR (Dosya adını buraya yazın)
 :: ---------------------------------------------------------
-set DOSYA_ADI=SalihAtolye.py
+set DOSYA_ADI=Converterlar.py
 set EXE_ADI=Salih_Atolye_App.exe
 
 echo ========================================================
