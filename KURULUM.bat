@@ -1,49 +1,100 @@
 @echo off
-color 0A
-title Salih Atolye - Otomatik Kurulum Sihirbazi
+color 0B
+title Salih Atolye - Otomatik Kurulum ve Derleme
+
+:: ---------------------------------------------------------
+:: AYARLAR (Dosya adını buraya yazın)
+:: ---------------------------------------------------------
+set DOSYA_ADI=SalihAtolye.py
+set EXE_ADI=Salih_Atolye_App.exe
 
 echo ========================================================
 echo   SALIH'IN DIJITAL ATOLYESI - KURULUM BASLIYOR
 echo ========================================================
 echo.
+
+:: ---------------------------------------------------------
+:: ADIM 1: Python Varlik Kontrolü
+:: ---------------------------------------------------------
 echo [1/4] Python kontrol ediliyor...
+
+:: Standart 'python' komutunu dener
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo HATA: Bilgisayarda Python yuklu degil veya PATH'e eklenmemis!
-    echo Lutfen once Python yukleyin - Microsoft Store'dan indirebilirsiniz.
+    echo.
+    echo [HATA] Python bulunamadi!
+    echo Lutfen Python'u indirip kurun ve kurulum sirasinda
+    echo "Add Python to PATH" secenegini isaretlediginizden emin olun.
     pause
     exit
 )
-echo Python bulundu. Devam ediliyor...
+
+for /f "delims=" %%i in ('python --version') do set PYTHON_VER=%%i
+echo %PYTHON_VER% bulundu. Islemlere baslaniyor...
 echo.
 
-echo [2/4] Gerekli kutuphaneler internetten indiriliyor...
-echo Lutfen bekleyin, bu islem internet hizina gore surebilir.
-pip install -r requirements.txt
+:: ---------------------------------------------------------
+:: ADIM 2: Kütüphane Yükleme
+:: ---------------------------------------------------------
+echo [2/4] Gerekli kutuphaneler yukleniyor...
+echo (requirements.txt dosyasi okunuyor...)
+
+if not exist requirements.txt (
+    echo [UYARI] requirements.txt bulunamadi!
+    echo Kutuphaneler manuel yuklenmek zorunda kalabilir.
+    echo PyInstaller manuel olarak yukleniyor...
+    python -m pip install pyinstaller
+) else (
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
+)
 echo.
 
-echo [3/4] EXE dosyasi olusturuluyor (Derleme)...
-echo Bu islem biraz zaman alabilir, lutfen kapatmayin.
-pyinstaller --noconsole --onefile Converterlar.py
+:: ---------------------------------------------------------
+:: ADIM 3: EXE Oluşturma
+:: ---------------------------------------------------------
+echo [3/4] EXE dosyasi derleniyor...
+echo Bu islem bilgisayar hizina gore biraz zaman alabilir...
 echo.
 
-echo [4/4] Temizlik yapiliyor ve dosya hazirlaniyor...
-:: Eski gereksiz dosyalari temizle
-if exist "Converterlar.spec" del "Converterlar.spec"
+:: Dosya var mı kontrol et
+if not exist "%DOSYA_ADI%" (
+    echo [HATA] '%DOSYA_ADI%' dosyasi bulunamadi!
+    echo Lutfen Python dosyanizin adini bu bat dosyasinin basindaki
+    echo 'set DOSYA_ADI=...' kisminda dogru yazdiginizdan emin olun.
+    pause
+    exit
+)
+
+:: --noconsole: Siyah konsol penceresi acilmaz
+:: --onefile: Tek parca exe yapar
+python -m PyInstaller --noconsole --onefile "%DOSYA_ADI%"
+echo.
+
+:: ---------------------------------------------------------
+:: ADIM 4: Temizlik ve Düzenleme
+:: ---------------------------------------------------------
+echo [4/4] Gereksiz dosyalar temizleniyor...
+
+:: .spec dosyasını sil (dosya adından türetilir)
+if exist "*.spec" del "*.spec"
+
+:: build klasörünü sil
 if exist "build" rmdir /s /q "build"
 
-:: EXE'yi dist klasorunden ana dizine tasi
-if exist "dist\Converterlar.exe" (
-    move "dist\Converterlar.exe" ".\Converterlar_Calistir.exe"
+:: EXE'yi dist klasöründen ana dizine taşı
+if exist "dist\%DOSYA_ADI:.py=.exe%" (
+    move "dist\%DOSYA_ADI:.py=.exe%" ".\%EXE_ADI%"
     rmdir /s /q "dist"
     echo.
     echo ========================================================
-    echo   BASARILI! KURULUM TAMAMLANDI.
-    echo   'Converterlar_Calistir.exe' dosyasi olusturuldu.
+    echo   BASARILI! 
+    echo   '%EXE_ADI%' dosyasi olusturuldu.
     echo ========================================================
 ) else (
     echo.
-    echo HATA: EXE dosyasi olusturulamadi. Bir sorun var.
+    echo [HATA] EXE olusturulamadi.
+    echo Lutfen kodda hata olmadigindan emin olun.
 )
 
 pause
